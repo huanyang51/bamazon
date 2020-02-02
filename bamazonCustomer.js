@@ -40,7 +40,7 @@ function start() {
       .then(answers => {
         var item = results[answers.itemId - 1];
         var itemQuantity = item.stock_quantity - answers.quantity;
-        if (answers.quantity < item.stock_quantity) {
+        if (itemQuantity >= 0) {
           total = total + answers.quantity * item.price;
           connection.query(
             `UPDATE products SET stock_quantity=${itemQuantity} WHERE item_id = ${answers.itemId};`,
