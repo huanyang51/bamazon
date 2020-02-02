@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
 connection.connect();
 connection.query(`SELECT * FROM products;`, function(err, results, fields) {
   if (err) throw err;
-  console.log(results);
+  var columns = ["item_id", "product_name", "department_name", "price"];
+  console.table(results, columns);
 });
 connection.end();
