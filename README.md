@@ -1,6 +1,6 @@
 # bamazon
 
-This is a cli app use node to get sql database and edit data according to different scenarios.
+This is a cli app using node to get sql database and edit data according to different scenarios.
 
 ### Customer View
 
