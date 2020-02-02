@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 });
 // set global viables
 var total = 0;
-
+var message = "You have purchased ";
 connection.connect();
 start();
 
@@ -48,6 +48,12 @@ function start() {
               if (err) throw err;
             }
           );
+          if (answers.quantity > 1) {
+            order = `${answers.quantity} items of ${item.product_name}\n`;
+          } else {
+            order = `${answers.quantity} item of ${item.product_name}\n`;
+          }
+          message = message + order;
           next();
         } else {
           console.log(
@@ -76,7 +82,7 @@ function next() {
           start();
           break;
         case "No, that's it.":
-          console.log(`Your total cost is $${total.toFixed(2)}.`);
+          console.log(message + `Your total cost is $${total.toFixed(2)}.`);
           connection.end();
           break;
         default:
