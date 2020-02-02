@@ -9,31 +9,10 @@ var connection = mysql.createConnection({
 });
 // set global viables
 var total = 0;
-// ask users if they would like to continue shopping or exit.
-function next() {
-  inquirer
-    .prompt([
-      {
-        name: "next",
-        type: "list",
-        message: "Would you like to purchase more item?",
-        choices: ["Yes, show me the products", "No, that's it."]
-      }
-    ])
-    .then(answers => {
-      switch (answers.next) {
-        case "Yes, show me the products":
-          start();
-          break;
-        case "No, that's it.":
-          console.log(`Your total cost is $${total.toFixed(2)}.`);
-          connection.end();
-          break;
-        default:
-          console.log("Sorry, something went wrong. Please try again");
-      }
-    });
-}
+
+connection.connect();
+start();
+
 function start() {
   connection.query(`SELECT * FROM products;`, function(err, results, fields) {
     if (err) throw err;
@@ -80,5 +59,28 @@ function start() {
   });
 }
 
-connection.connect();
-start();
+// ask users if they would like to continue shopping or exit.
+function next() {
+  inquirer
+    .prompt([
+      {
+        name: "next",
+        type: "list",
+        message: "Would you like to purchase more items?",
+        choices: ["Yes, show me the products", "No, that's it."]
+      }
+    ])
+    .then(answers => {
+      switch (answers.next) {
+        case "Yes, show me the products":
+          start();
+          break;
+        case "No, that's it.":
+          console.log(`Your total cost is $${total.toFixed(2)}.`);
+          connection.end();
+          break;
+        default:
+          console.log("Sorry, something went wrong. Please try again");
+      }
+    });
+}
