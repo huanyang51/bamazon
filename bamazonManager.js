@@ -25,14 +25,15 @@ function viewProducts() {
 }
 
 function viewLowInvent() {
-  connection.query(
-    `SELECT * FROM products WHERE stock_quantity < 300;`,
-    function(err, results, fields) {
-      if (err) throw err;
-      console.table(results, columns);
-      start();
-    }
-  );
+  connection.query(`SELECT * FROM products WHERE stock_quantity < 5;`, function(
+    err,
+    results,
+    fields
+  ) {
+    if (err) throw err;
+    console.table(results, columns);
+    start();
+  });
 }
 
 function addInvent() {
